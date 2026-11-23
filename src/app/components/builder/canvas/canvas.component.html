@@ -1,0 +1,14 @@
+<span class="lead">Show me</span>
+@if (chips().length) {
+<div class="chain">
+    @for (b of chips(); track key(b)) {
+    <span class="blk k-{{ cssKind(b) }}">
+        <b>{{ chipLabel(b) }}</b>
+        <button type="button" class="x" [attr.aria-label]="'Remove ' + chipLabel(b)"
+            (click)="state.remove(key(b))">✕</button>
+    </span>
+    }
+</div>
+}
+<span class="slot">+ drop a block</span>
+<span class="tip">Drag a block here, or just click it</span>

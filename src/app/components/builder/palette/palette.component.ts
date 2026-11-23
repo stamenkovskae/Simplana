@@ -8,35 +8,8 @@ import { Block, GROUPS, cssKind, label } from './blocks';
   selector: 'app-palette',
   imports: [CdkDrag],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `
-    :host { display: flex; flex-direction: column; gap: 14px; background: var(--panel); padding: 16px 16px 20px; }
-    h2 { font-size: 13px; font-weight: 600; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
-    h2 u { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .blocks { display: flex; flex-wrap: wrap; gap: 8px; }
-    .blk:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; transform: none; }
-  `,
-  template: `
-    @for (g of groups; track g.title) {
-      <section>
-        <h2><u [style.background]="'var(--' + g.kind + ')'"></u>{{ g.title }}</h2>
-        <div class="blocks">
-          @for (b of g.blocks; track label(b)) {
-            <button
-              type="button"
-              class="blk k-{{ cssKind(b) }}"
-              [class.used]="isUsed(state.query(), b)"
-              [disabled]="isDisabled(state.query(), b)"
-              [cdkDragDisabled]="isDisabled(state.query(), b)"
-              cdkDrag
-              (cdkDragStarted)="state.dragging.set(true)"
-              (cdkDragEnded)="dropped($event, b)"
-              (click)="state.add(b)"
-            >{{ label(b) }}</button>
-          }
-        </div>
-      </section>
-    }
-  `,
+  styleUrl: './palette.component.css',
+  templateUrl: './palette.component.html',
 })
 export class PaletteComponent {
   protected readonly state = inject(QueryState);

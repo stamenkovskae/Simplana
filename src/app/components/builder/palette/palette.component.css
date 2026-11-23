@@ -1,0 +1,36 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--panel);
+    padding: 16px 16px 20px;
+}
+
+h2 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+h2 u {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.blocks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.blk:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}

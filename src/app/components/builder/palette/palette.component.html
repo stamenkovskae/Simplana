@@ -1,0 +1,13 @@
+@for (g of groups; track g.title) {
+<section>
+    <h2><u [style.background]="'var(--' + g.kind + ')'"></u>{{ g.title }}</h2>
+    <div class="blocks">
+        @for (b of g.blocks; track label(b)) {
+        <button type="button" class="blk k-{{ cssKind(b) }}" [class.used]="isUsed(state.query(), b)"
+            [disabled]="isDisabled(state.query(), b)" [cdkDragDisabled]="isDisabled(state.query(), b)" cdkDrag
+            (cdkDragStarted)="state.dragging.set(true)" (cdkDragEnded)="dropped($event, b)" (click)="state.add(b)">{{
+            label(b) }}</button>
+        }
+    </div>
+</section>
+}
