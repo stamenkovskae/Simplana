@@ -27,7 +27,7 @@ describe('ChartComponent', () => {
 
   it('shows the empty state without data', async () => {
     await set({ series: [] });
-    expect(el().textContent).toContain('No data yet. Is your API getting traffic?');
+    expect(el().textContent).toContain('No data in this time range. For failure charts that is good news; otherwise check that your API is getting traffic.');
   });
 
   it('shows a skeleton while loading, even with data', async () => {

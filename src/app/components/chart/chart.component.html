@@ -10,7 +10,7 @@
       </div>
     }
     @case ('empty') {
-      <div class="message"><p>No data yet. Is your API getting traffic?</p></div>
+      <div class="message"><p>No data in this time range. For failure charts that is good news; otherwise check that your API is getting traffic.</p></div>
     }
     @default {
       @if (look() === 'number') {
