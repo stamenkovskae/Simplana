@@ -24,13 +24,12 @@ import {
   Tooltip,
 } from 'chart.js';
 import { ChartSeries } from '../../chart/chart-series';
+import { GUIDE_DASH, SERIES_DASHES, SOLID } from '../../chart/dashes';
+import { INK, INK_08, INK_25, PURPLE, RED, TEAL, WHITE } from '../../chart/colors';
 
 export type ChartLook = 'line' | 'area' | 'bars' | 'number';
 
-const FALLBACK_COLORS = ['#e8452c', '#0f8f94', '#8a3fd0'];
-// solid / dotted / dashed, so colour is never the only cue
-const DASHES: number[][] = [[], [1, 9], [14, 7]];
-const INK = '#1d1b34';
+const FALLBACK_COLORS = [RED, TEAL, PURPLE];
 
 const fmtNumber = (v: number) => v.toLocaleString(undefined, { maximumFractionDigits: 2 });
 const fmtTime = (t: number) =>
@@ -52,14 +51,14 @@ const decorations: Plugin = {
     const active = tooltip?.getActiveElements?.() ?? [];
     if (active.length) {
       const x = active[0].element.x;
-      ctx.strokeStyle = 'rgba(29,27,52,.25)';
+      ctx.strokeStyle = INK_25;
       ctx.lineWidth = 2;
-      ctx.setLineDash([4, 4]);
+      ctx.setLineDash(GUIDE_DASH);
       ctx.beginPath();
       ctx.moveTo(x, chartArea.top);
       ctx.lineTo(x, chartArea.bottom);
       ctx.stroke();
-      ctx.setLineDash([]);
+      ctx.setLineDash(SOLID);
     }
     ctx.font = '600 13px "Bricolage Grotesque", system-ui, sans-serif';
     ctx.textBaseline = 'middle';
@@ -76,8 +75,8 @@ const decorations: Plugin = {
     ends.forEach(({ i, last }) => {
       const ds = chart.data.datasets[i];
       const color = ds.borderColor as string;
-      ctx.fillStyle = '#fff';
-      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = WHITE;
+      ctx.strokeStyle = WHITE;
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(last.x, last.y, 7, 0, Math.PI * 2);
@@ -164,12 +163,12 @@ export class ChartComponent {
             borderWidth: 4,
             borderCapStyle: 'round' as const,
             borderJoinStyle: 'round' as const,
-            borderDash: DASHES[i % DASHES.length],
+            borderDash: SERIES_DASHES[i % SERIES_DASHES.length],
             tension: 0.35,
             pointRadius: 0,
             pointHoverRadius: 7,
             pointHoverBackgroundColor: colors[i % colors.length],
-            pointHoverBorderColor: '#fff',
+            pointHoverBorderColor: WHITE,
             pointHoverBorderWidth: 3,
             // faint area fill on the first series only
             fill: look === 'area' && i === 0 ? 'origin' : false,
@@ -201,7 +200,7 @@ export class ChartComponent {
           y: {
             beginAtZero: true,
             border: { display: false },
-            grid: { color: 'rgba(29,27,52,.08)', lineWidth: 2 },
+            grid: { color: INK_08, lineWidth: 2 },
             ticks: { maxTicksLimit: 5, callback: (v) => fmtNumber(Number(v)) },
           },
         },
